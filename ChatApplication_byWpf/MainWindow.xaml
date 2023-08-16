@@ -1,0 +1,27 @@
+﻿<Window x:Class="ChatApplication_byWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatApplication_byWpf"
+        mc:Ignorable="d"
+        Title="Login" Height="450" Width="800">
+    <Grid>
+        <Image Height="2000" Width="800" Source="https://1.bp.blogspot.com/-7m3DkcL2Lr4/YCREdHeLGwI/AAAAAAAAfDk/8y2AxRtE3qI4qYwhQiC7yXj-rBgCkjMngCLcBGAsYHQ/w296-h640/hologram-gradient-HD.png"/>
+        <TextBox Name="textbox" HorizontalAlignment="Center" Height="30" Margin="0,194,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="376" RenderTransformOrigin="0.5,0.402"/>
+        <Button Content="Login" HorizontalAlignment="Center" Height="20" Margin="0,249,0,0" VerticalAlignment="Top" Width="195" Click="Button_Click"/>
+
+
+        <Frame
+        Name="MainWindowFrame"
+        Grid.Row="1"
+        NavigationUIVisibility="Hidden" Navigated="MainWindowFrame_Navigated"
+        >
+
+        </Frame>
+        <Label Name="label" Content="ONLY CHAT" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.569,0.541" Height="60" Margin="0,119,0,0" Width="400" FontSize="24" FontWeight="Bold" />
+
+
+
+    </Grid>
+</Window>
