@@ -59,11 +59,6 @@ namespace ChatApplication_byWpf
             }
             return messages;
         }
-        static public void clearFile()
-        {
-            string file = Path.Combine(Environment.CurrentDirectory, "chattfileee.txt");
-            File.Delete(file);
-            File.Create(file).Close();
-        }
+       
     }
 }

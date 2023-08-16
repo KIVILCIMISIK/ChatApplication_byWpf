@@ -12,7 +12,8 @@ namespace ChatApplication_byWpf
 {
     public class ChatJson
     {
-     internal List<Message> Messages { get; set; }
+   
+        internal List<Message> Messages { get; set; }
 
 
         public DateTime logInTime;
@@ -50,8 +51,10 @@ namespace ChatApplication_byWpf
             File.WriteAllText("chatjsonn.txt", JsonData);
 
         }
+    }
+}
         
-        public void readChatJson(ChatJson chatjson)
+        /* public void readChatJson(ChatJson chatjson)
         {
             List<Message> newMessages = chatjson.Messages.Where(m => m.Time > chatjson.logInTime).ToList();
             //  List<Message> newMessages = chatjson.Messages.ToList();
@@ -59,16 +62,15 @@ namespace ChatApplication_byWpf
             {
                 if (message.Time > chatjson.lastMessageTime)
                 {
-                    
-                     Console.WriteLine(message.Time + "-> " + message.Sender + ": " + message.Text);
-
-                    lastMessageTime = message.Time;
+                    string newMessageText = $"{message.Time} -> {message.Sender}: {message.Text}";
+                    textblock.Text += newMessageText + Environment.NewLine;
+                    chatjson.lastMessageTime = message.Time;
                 }
             }
 
         }
     }
-}
+}*/
 
 
 
