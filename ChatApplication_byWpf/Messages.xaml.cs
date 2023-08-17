@@ -57,7 +57,7 @@ namespace ChatApplication_byWpf
 
             readMessages();
             chatjson.loadChat();
-            ChatJson.saveChatJson(chatjson);
+           // ChatJson.saveChatJson(chatjson);
 
 
         }
@@ -101,7 +101,7 @@ namespace ChatApplication_byWpf
             chatjson.Messages.Add(newMessage);
 
 
-            // ChatJson.saveChatJson(chatjson);
+            ChatJson.saveChatJson(chatjson);
 
 
 

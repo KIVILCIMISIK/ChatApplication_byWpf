@@ -13,7 +13,7 @@ namespace ChatApplication_byWpf
     public class ChatJson
     {
    
-        internal List<Message> Messages { get; set; }
+        public List<Message> Messages { get; set; }
 
 
         public DateTime logInTime;

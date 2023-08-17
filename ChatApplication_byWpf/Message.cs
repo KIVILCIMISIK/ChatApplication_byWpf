@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChatApplication_byWpf
 {
-    internal class Message
+    public class Message
     {
         public string Sender { get; set; }
         public string Text { get; set; }
