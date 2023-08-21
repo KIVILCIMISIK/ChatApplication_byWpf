@@ -22,11 +22,13 @@ namespace ChatApplication_byWpf
     {
         public Messages messagesPage;
         User user;
+        ChatJson chatjson;
       
         public MainWindow()
         {
             
             user = new User();
+            chatjson = new ChatJson();
             InitializeComponent();
            
         }
@@ -50,8 +52,13 @@ namespace ChatApplication_byWpf
 
             }
             Message.writeText(user.Name + " logged in!");
+            Message loginMessage = new Message();
+            loginMessage.Sender = user.Name;
+            loginMessage.Text = "logged in!";
+            chatjson.Messages.Add(loginMessage);
+            ChatJson.saveChatJson(chatjson);
 
-            messagesPage = new Messages(user);
+            messagesPage = new Messages(user,chatjson);
             MainWindowFrame.Content = messagesPage;
             label.Content = null;
         }

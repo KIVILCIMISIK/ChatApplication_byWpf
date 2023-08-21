@@ -34,11 +34,12 @@ namespace ChatApplication_byWpf
 
 
 
-        public Messages(User user)
+        public Messages(User user,ChatJson chatjson)
         {
             chatjson = new ChatJson();
 
             this.user = user;
+            this.chatjson = chatjson;
             chatjson.logInTime = user.logInTime;
             message = new Message();
             timer = new DispatcherTimer();
@@ -49,19 +50,19 @@ namespace ChatApplication_byWpf
             userBrushes.Add(user.Name, new SolidColorBrush(Colors.Blue));
 
         }
-       
+
         private void Timer_Tick(object sender, EventArgs e)
         {
 
-          
-            
+
+
             readMessages();
             chatjson.loadChat();
             clock = $"{DateTime.Now.ToShortTimeString()}";
             textClock.Text = clock;
 
         }
-   
+
         public void readMessages()
         {
             List<Message> newMessages = chatjson.Messages.Where(m => m.Time > chatjson.logInTime).ToList();
@@ -96,7 +97,7 @@ namespace ChatApplication_byWpf
                     textblock.Inlines.Add(new LineBreak());
 
                     chatjson.lastMessageTime = message.Time;
-                   // scrollViewer.ScrollToBottom();
+                    // scrollViewer.ScrollToBottom();
                 }
             }
         }
@@ -122,12 +123,12 @@ namespace ChatApplication_byWpf
             newMessage.Time = DateTime.Now;
 
             Message.writeText(newMessage.Time + "-> " + newMessage.Sender + ": " + newMessage.Text);
-            chatjson.Messages.Add(newMessage); 
+            chatjson.Messages.Add(newMessage);
 
             ChatJson.saveChatJson(chatjson);
             textbox_message.Text = null;
         }
-        
+
         private void logout_Click(object sender, RoutedEventArgs e)
         {
 
@@ -152,8 +153,8 @@ namespace ChatApplication_byWpf
             string newFontSize = (string)comboBoxItem.Content;
 
             int fontsize;
-            if(Int32.TryParse(newFontSize, out fontsize))
-                 textblock.FontSize = fontsize;
+            if (Int32.TryParse(newFontSize, out fontsize))
+                textblock.FontSize = fontsize;
         }
         private void ComboBoxFontType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -162,19 +163,38 @@ namespace ChatApplication_byWpf
             string newFontType = (string)comboBoxItem.Content;
 
             if (newFontType == "Italic")
+            {
                 textblock.FontStyle = FontStyles.Italic;
+                
+
+            }
             else if (newFontType == "Normal")
             {
                 textblock.FontStyle = FontStyles.Normal;
                 textblock.FontWeight = FontWeights.Regular;
+
             }
             else if (newFontType == "Bold")
+            {
                 textblock.FontWeight = FontWeights.Bold;
+            }
+         
+        }
+        private void emojiListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox listBox = (ListBox)sender;
+            ListBoxItem selectedItem = (ListBoxItem)listBox.SelectedItem;
+            if (selectedItem != null)
+            {
+                string selectedEmoji = selectedItem.Content.ToString();
+                textbox_message.Text += selectedEmoji;
+            }
+
+
         }
     }
+
 }
-
-
 
 
 

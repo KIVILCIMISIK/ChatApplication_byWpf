@@ -25,7 +25,7 @@
         <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Auto" Margin="5,20,180,185">
             <TextBlock Name="textblock" TextWrapping="Wrap" Margin="5,20,180,185"  ><Run/><LineBreak/><Run/></TextBlock>
         </ScrollViewer>
-        <Image Source="https://cdn-icons-png.flaticon.com/512/126/126467.png" Margin="718,16,9,370"/>
+        <Image Source="https://cdn-icons-png.flaticon.com/512/126/126467.png" Margin="730,16,9,385"/>
         <MenuItem Name="logout" Header="Log out" Margin="730,5,10,365" RenderTransformOrigin="9.267,0.6" Click="logout_Click" >
         </MenuItem>
         <DockPanel Height="25" VerticalAlignment="Top" Margin="360,375,225,0" RenderTransformOrigin="0.5,0.5">
@@ -38,7 +38,7 @@
                 </TransformGroup>
             </DockPanel.RenderTransform>
             <ToolBarTray DockPanel.Dock="Bottom" Height="25" RenderTransformOrigin="0.512,1.132" Width="183">
-                <ToolBar>
+                <ToolBar Margin="0,0,1,0">
                     <Label>Font Size</Label>
                     <ComboBox Name="ComboBoxFontSize" SelectionChanged="ComboBoxFontSize_SelectionChanged" >
                         <ComboBoxItem>8</ComboBoxItem>
@@ -59,7 +59,27 @@
                 </ToolBar>
             </ToolBarTray>
         </DockPanel>
+        <ListBox Name="emojiListBox" Margin="615,100,40,145" SelectionChanged="emojiListBox_SelectionChanged" Background="White">
+            <ListBoxItem Width="188" Height="20">😀</ListBoxItem>
+            <ListBoxItem>😂</ListBoxItem>
+            <ListBoxItem>😍</ListBoxItem>
+            <ListBoxItem>🥰</ListBoxItem>
+            <ListBoxItem>😎</ListBoxItem>
+            <ListBoxItem>🤗</ListBoxItem>
+            <ListBoxItem>🤩</ListBoxItem>
+            <ListBoxItem>😊</ListBoxItem>
+            <ListBoxItem>😇</ListBoxItem>
+            <ListBoxItem>😜</ListBoxItem>
+            <ListBoxItem>🤪</ListBoxItem>
+            <ListBoxItem>😋</ListBoxItem>
+            <ListBoxItem>❤️</ListBoxItem>
+            <ListBoxItem>💔</ListBoxItem>
+            <ListBoxItem>👻</ListBoxItem>
+            <ListBoxItem>🦋</ListBoxItem>
+            <ListBoxItem>🌍</ListBoxItem>
+            <ListBoxItem>🚗</ListBoxItem>
 
+        </ListBox>
 
 
 
