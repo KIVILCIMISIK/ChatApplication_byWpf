@@ -10,13 +10,55 @@
 
     <Grid Background="#FFE5DFDF">
 
-        <Image Source="https://cdn2.dokuzsoft.com/u/cukurovakitap/img/b/s/p/spectra-color-fotokopi-kagidi-acik-pembe-a4-500lu92968d4ccbdc50a5feae46585e16d849.jpg" Height="800" Width="800"></Image>
-        <Button Content="SEND" HorizontalAlignment="Left" Height="40" Margin="615,320,0,0" VerticalAlignment="Top" Width="160" Click="Button_Click"/>
-        <TextBox Name="textbox_message" HorizontalAlignment="Left" Height="70" Margin="105,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="475" TextChanged="TextBox_TextChanged"/>
-        <TextBlock Name="textblock" TextWrapping="Wrap" Margin="5,20,75,185"><Run/><LineBreak/><Run/></TextBlock>
+        <Image Source="https://cdn2.dokuzsoft.com/u/cukurovakitap/img/b/s/p/spectra-color-fotokopi-kagidi-acik-pembe-a4-500lu92968d4ccbdc50a5feae46585e16d849.jpg" Height="800" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textClock" TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right"  RenderTransformOrigin="0.3,9.75" Margin="0,0,10,10" FontSize="16" Panel.ZIndex="1" Width="55" Height="30"  >
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform><Run Language="tr-tr"/></TextBlock>
+        <Button Content="SEND" HorizontalAlignment="Left" Height="35" Margin="615,310,0,0" VerticalAlignment="Top" Width="160" Click="Button_Click"/>
+        <TextBox Name="textbox_message" HorizontalAlignment="Left" Height="80" Margin="65,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="535" TextChanged="TextBox_TextChanged" KeyUp="TextboxMessage_KeyUp"/>
+        <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Auto" Margin="5,20,180,185">
+            <TextBlock Name="textblock" TextWrapping="Wrap" Margin="5,20,180,185"  ><Run/><LineBreak/><Run/></TextBlock>
+        </ScrollViewer>
         <Image Source="https://cdn-icons-png.flaticon.com/512/126/126467.png" Margin="718,16,9,370"/>
-        <MenuItem Name="logout" Header="Log out" Margin="730,5,0,355" RenderTransformOrigin="9.267,0.6" Click="logout_Click" >
+        <MenuItem Name="logout" Header="Log out" Margin="730,5,10,365" RenderTransformOrigin="9.267,0.6" Click="logout_Click" >
         </MenuItem>
+        <DockPanel Height="25" VerticalAlignment="Top" Margin="360,375,225,0" RenderTransformOrigin="0.5,0.5">
+            <DockPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </DockPanel.RenderTransform>
+            <ToolBarTray DockPanel.Dock="Bottom" Height="25" RenderTransformOrigin="0.512,1.132" Width="183">
+                <ToolBar>
+                    <Label>Font Size</Label>
+                    <ComboBox Name="ComboBoxFontSize" SelectionChanged="ComboBoxFontSize_SelectionChanged" >
+                        <ComboBoxItem>8</ComboBoxItem>
+                        <ComboBoxItem>12</ComboBoxItem>
+                        <ComboBoxItem>16</ComboBoxItem>
+                        <ComboBoxItem>20</ComboBoxItem>
+
+                    </ComboBox>
+                    <Label>Font Type</Label>
+                    <ComboBox Name="ComboBoxFontType" SelectionChanged="ComboBoxFontType_SelectionChanged">
+                        <ComboBoxItem>Normal</ComboBoxItem>
+                        <ComboBoxItem>Italic</ComboBoxItem>
+                        <ComboBoxItem>Bold</ComboBoxItem>
+
+                    </ComboBox>
+
+
+                </ToolBar>
+            </ToolBarTray>
+        </DockPanel>
 
 
 

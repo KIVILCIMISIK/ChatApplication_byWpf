@@ -8,7 +8,7 @@
         Title="Login" Height="450" Width="800">
     <Grid>
         <Image Height="2000" Width="800" Source="https://1.bp.blogspot.com/-7m3DkcL2Lr4/YCREdHeLGwI/AAAAAAAAfDk/8y2AxRtE3qI4qYwhQiC7yXj-rBgCkjMngCLcBGAsYHQ/w296-h640/hologram-gradient-HD.png"/>
-        <TextBox Name="textbox" HorizontalAlignment="Center" Height="30" Margin="0,194,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="376" RenderTransformOrigin="0.5,0.402"/>
+        <TextBox Name="textbox" HorizontalAlignment="Center" Height="30" Margin="0,194,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="376" RenderTransformOrigin="0.5,0.402" KeyUp="TextboxLogin_KeyUp"/>
         <Button Content="Login" HorizontalAlignment="Center" Height="20" Margin="0,249,0,0" VerticalAlignment="Top" Width="195" Click="Button_Click"/>
 
 

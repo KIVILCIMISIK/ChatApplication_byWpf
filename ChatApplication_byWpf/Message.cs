@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,25 @@ namespace ChatApplication_byWpf
 {
     public class Message
     {
-        public string Sender { get; set; }
-        public string Text { get; set; }
-        public DateTime Time { get; set; }
+        private string sender;
+        public string Sender {
+            get { return sender; }
+            set { sender = value; }
+        }
+        private string text;
+        public string Text
+        {
+            get { return text; }
+            set { text = value; }
+        }
+       
+        
+        private DateTime time;
+        public DateTime Time
+        {
+            get { return time; }
+            set { time = value; }
+        }
 
         public static List<string> messages = new List<string>();
 

@@ -30,16 +30,27 @@ namespace ChatApplication_byWpf
             InitializeComponent();
            
         }
+        private void TextboxLogin_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                Login();
 
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Login();
+        }
+        private void Login()
+        {
+
             if (!string.IsNullOrWhiteSpace(textbox.Text))
             {
                 user.Name = textbox.Text;
                 user.logInTime = DateTime.Now;
-                
+
             }
             Message.writeText(user.Name + " logged in!");
+
             messagesPage = new Messages(user);
             MainWindowFrame.Content = messagesPage;
             label.Content = null;

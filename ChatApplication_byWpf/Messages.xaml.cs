@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using System.Diagnostics;
 
 namespace ChatApplication_byWpf
 {
@@ -24,12 +25,12 @@ namespace ChatApplication_byWpf
     /// </summary>
     public partial class Messages : Page
     {
-        private static object locker = new object();
         private User user;
         Message message;
         ChatJson chatjson;
         DispatcherTimer timer;
-
+        string clock;
+        private Dictionary<string, SolidColorBrush> userBrushes = new Dictionary<string, SolidColorBrush>();
 
 
 
@@ -42,55 +43,78 @@ namespace ChatApplication_byWpf
             message = new Message();
             timer = new DispatcherTimer();
             InitializeComponent();
-            timer.Interval = TimeSpan.FromSeconds(1.5);
+            timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
             timer.Start();
-            // chatjson.loadChat();
-
+            userBrushes.Add(user.Name, new SolidColorBrush(Colors.Blue));
 
         }
-
+       
         private void Timer_Tick(object sender, EventArgs e)
         {
 
-
-
+          
+            
             readMessages();
             chatjson.loadChat();
-           // ChatJson.saveChatJson(chatjson);
-
+            clock = $"{DateTime.Now.ToShortTimeString()}";
+            textClock.Text = clock;
 
         }
+   
         public void readMessages()
         {
-
             List<Message> newMessages = chatjson.Messages.Where(m => m.Time > chatjson.logInTime).ToList();
-            //  List<Message> newMessages = chatjson.Messages.ToList();
+
             foreach (Message message in newMessages)
             {
+                if (chatjson.lastMessageTime.ToShortDateString() != message.Time.ToShortDateString())
+                {
+                    string timeText = $"{message.Time.ToShortDateString()}";
+                    textblock.Text += timeText + Environment.NewLine;
+                }
+
                 if (message.Time > chatjson.lastMessageTime)
                 {
-                    string newMessageText = $"{message.Time} -> {message.Sender}: {message.Text}";
+                    string newMessageText = $"{message.Time.ToShortTimeString()} -> {message.Sender}: {message.Text}";
+                    SolidColorBrush brush;
 
-                    textblock.Text += newMessageText + Environment.NewLine;
+                    if (message.Sender == user.Name)
+                    {
+                        if (!userBrushes.ContainsKey(message.Sender))
+                        {
+                            userBrushes.Add(message.Sender, new SolidColorBrush(Colors.Blue));
+                        }
+                        brush = userBrushes[message.Sender];
+                    }
+                    else
+                    {
+                        brush = new SolidColorBrush(Colors.Black);
+                    }
+
+                    textblock.Inlines.Add(new Run(newMessageText) { Foreground = brush });
+                    textblock.Inlines.Add(new LineBreak());
 
                     chatjson.lastMessageTime = message.Time;
-
+                   // scrollViewer.ScrollToBottom();
                 }
             }
-
-
-
-
-
-            // chatjson.loadChat();
-            //ChatJson.saveChatJson(chatjson);
-
-
         }
+        private void TextboxMessage_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SendMessage();
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            SendMessage();
+        }
 
+        private void SendMessage()
+        {
             Message newMessage = new Message();
 
             newMessage.Sender = user.Name;
@@ -98,23 +122,12 @@ namespace ChatApplication_byWpf
             newMessage.Time = DateTime.Now;
 
             Message.writeText(newMessage.Time + "-> " + newMessage.Sender + ": " + newMessage.Text);
-            chatjson.Messages.Add(newMessage);
-
+            chatjson.Messages.Add(newMessage); 
 
             ChatJson.saveChatJson(chatjson);
-
-
-
             textbox_message.Text = null;
-
         }
-
-
-
-
-
-
-
+        
         private void logout_Click(object sender, RoutedEventArgs e)
         {
 
@@ -131,6 +144,32 @@ namespace ChatApplication_byWpf
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+        private void ComboBoxFontSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            ComboBoxItem comboBoxItem = (ComboBoxItem)comboBox.SelectedItem;
+            string newFontSize = (string)comboBoxItem.Content;
+
+            int fontsize;
+            if(Int32.TryParse(newFontSize, out fontsize))
+                 textblock.FontSize = fontsize;
+        }
+        private void ComboBoxFontType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            ComboBoxItem comboBoxItem = (ComboBoxItem)comboBox.SelectedItem;
+            string newFontType = (string)comboBoxItem.Content;
+
+            if (newFontType == "Italic")
+                textblock.FontStyle = FontStyles.Italic;
+            else if (newFontType == "Normal")
+            {
+                textblock.FontStyle = FontStyles.Normal;
+                textblock.FontWeight = FontWeights.Regular;
+            }
+            else if (newFontType == "Bold")
+                textblock.FontWeight = FontWeights.Bold;
         }
     }
 }

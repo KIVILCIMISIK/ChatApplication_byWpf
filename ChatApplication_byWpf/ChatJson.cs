@@ -54,23 +54,12 @@ namespace ChatApplication_byWpf
     }
 }
         
-        /* public void readChatJson(ChatJson chatjson)
-        {
-            List<Message> newMessages = chatjson.Messages.Where(m => m.Time > chatjson.logInTime).ToList();
-            //  List<Message> newMessages = chatjson.Messages.ToList();
-            foreach (Message message in newMessages)
-            {
-                if (message.Time > chatjson.lastMessageTime)
-                {
-                    string newMessageText = $"{message.Time} -> {message.Sender}: {message.Text}";
-                    textblock.Text += newMessageText + Environment.NewLine;
-                    chatjson.lastMessageTime = message.Time;
-                }
-            }
+        
+            
 
-        }
-    }
-}*/
+        
+    
+
 
 
 
