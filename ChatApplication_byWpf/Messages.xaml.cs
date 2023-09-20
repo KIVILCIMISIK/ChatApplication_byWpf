@@ -40,14 +40,14 @@ namespace ChatApplication_byWpf
 
             this.user = user;
             this.chatjson = chatjson;
-            chatjson.logInTime = user.logInTime;
+            chatjson.logInTime = user.Login_Time;
             message = new Message();
             timer = new DispatcherTimer();
             InitializeComponent();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
             timer.Start();
-            userBrushes.Add(user.Name, new SolidColorBrush(Colors.Blue));
+            userBrushes.Add(user.User_name, new SolidColorBrush(Colors.Blue));
 
         }
 
@@ -57,7 +57,7 @@ namespace ChatApplication_byWpf
 
 
             readMessages();
-            chatjson.loadChat();
+         
             clock = $"{DateTime.Now.ToShortTimeString()}";
             textClock.Text = clock;
 
@@ -65,28 +65,45 @@ namespace ChatApplication_byWpf
 
         public void readMessages()
         {
-            List<Message> newMessages = chatjson.Messages.Where(m => m.Time > chatjson.logInTime).ToList();
+
+            using (var dbContext = new MyDbContext())
+            {
+                var Messages = dbContext.Messages.ToList();
+                var NewMessage = dbContext.Messages.Where(m => m.Message_time >= m.Last_Message_Time).ToList();
+                
+                foreach(var message in NewMessage)
+                {
+                    textblock.Text += $"{message.User_name}: {message.Message_text}\n";
+
+                   
+
+
+                }
+
+
+            }
+       /*     List<Message> newMessages = chatjson.Messages.Where(m => m.Message_time > chatjson.logInTime).ToList();
 
             foreach (Message message in newMessages)
             {
-                if (chatjson.lastMessageTime.ToShortDateString() != message.Time.ToShortDateString())
+                if (chatjson.lastMessageTime.ToShortDateString() != message.Message_time.ToShortDateString())
                 {
-                    string timeText = $"{message.Time.ToShortDateString()}";
+                    string timeText = $"{message.Message_time.ToShortDateString()}";
                     textblock.Text += timeText + Environment.NewLine;
                 }
 
-                if (message.Time > chatjson.lastMessageTime)
+                if (message.Message_time > chatjson.lastMessageTime)
                 {
-                    string newMessageText = $"{message.Time.ToShortTimeString()} -> {message.Sender}: {message.Text}";
+                    string newMessageText = $"{message.Message_time.ToShortTimeString()} -> {message.User_name}: {message.Message_text}";
                     SolidColorBrush brush;
 
-                    if (message.Sender == user.Name)
+                    if (message.User_name == user.User_name)
                     {
-                        if (!userBrushes.ContainsKey(message.Sender))
+                        if (!userBrushes.ContainsKey(message.User_name))
                         {
-                            userBrushes.Add(message.Sender, new SolidColorBrush(Colors.Blue));
+                            userBrushes.Add(message.User_name, new SolidColorBrush(Colors.Blue));
                         }
-                        brush = userBrushes[message.Sender];
+                        brush = userBrushes[message.User_name];
                     }
                     else
                     {
@@ -96,10 +113,10 @@ namespace ChatApplication_byWpf
                     textblock.Inlines.Add(new Run(newMessageText) { Foreground = brush });
                     textblock.Inlines.Add(new LineBreak());
 
-                    chatjson.lastMessageTime = message.Time;
+                    chatjson.lastMessageTime = message.Message_time;
                     // scrollViewer.ScrollToBottom();
                 }
-            }
+            }*/
         }
         private void TextboxMessage_KeyUp(object sender, KeyEventArgs e)
         {
@@ -116,9 +133,25 @@ namespace ChatApplication_byWpf
 
         private void SendMessage()
         {
-            Message newMessage = new Message();
+            using (var dbContext = new MyDbContext())
+            {
+                var newMessage = new Message
+                {
+                    User_name = user.User_name,
+                    
+                    Message_time = DateTime.Now,
+                    Message_text = textbox_message.Text,
+                    Last_Message_Time=DateTime.Now,
 
-            newMessage.Sender = user.Name;
+                };
+                
+                dbContext.Messages.Add(newMessage);
+                dbContext.SaveChanges();
+            }
+            
+            /*Message newMessage = new Message();
+
+            newMessage.Sender = user.User_name;
             newMessage.Text = textbox_message.Text;
             newMessage.Time = DateTime.Now;
 
@@ -126,7 +159,7 @@ namespace ChatApplication_byWpf
             chatjson.Messages.Add(newMessage);
 
             ChatJson.saveChatJson(chatjson);
-            textbox_message.Text = null;
+            textbox_message.Text = null; */
         }
 
         private void logout_Click(object sender, RoutedEventArgs e)

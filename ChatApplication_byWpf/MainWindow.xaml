@@ -21,7 +21,7 @@
         </Frame>
         <Label Name="label" Content="ONLY CHAT" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.569,0.541" Height="60" Margin="0,119,0,0" Width="400" FontSize="24" FontWeight="Bold" />
 
-
+        
 
     </Grid>
 </Window>

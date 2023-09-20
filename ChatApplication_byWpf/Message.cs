@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
@@ -10,27 +12,22 @@ namespace ChatApplication_byWpf
 {
     public class Message
     {
-        private string sender;
-        public string Sender {
-            get { return sender; }
-            set { sender = value; }
-        }
-        private string text;
-        public string Text
-        {
-            get { return text; }
-            set { text = value; }
+
+        [Key]
+        public string User_name {
+           get;
+           set;
         }
        
         
+        public string Message_text { get; set; }
+        
         private DateTime time;
-        public DateTime Time
-        {
-            get { return time; }
-            set { time = value; }
-        }
-
+        public DateTime Message_time { get; set; }
+        public DateTime Last_Message_Time { get; set; }
+        
         public static List<string> messages = new List<string>();
+       
 
         static public void writeText(string text)
         {
@@ -79,3 +76,4 @@ namespace ChatApplication_byWpf
        
     }
 }
+        

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -7,20 +9,17 @@ using System.Threading.Tasks;
 
 namespace ChatApplication_byWpf
 {
-   public class User
-    {
-        private string nickName;
-        public string Name
-        {
-            get { return nickName; }
-            set { nickName = value; }
-        }
-        private DateTime loginTime;
-        public DateTime logInTime
-        {
-            get { return loginTime; }
-            set { loginTime = value; }
-        }
     
-}
+    public class User
+    {
+        
+        [Key]  public string User_name
+        { get; set; }
+
+        public DateTime Login_Time
+        {
+            get; set;
+        }
+
+    }
 }
